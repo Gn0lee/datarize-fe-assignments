@@ -1,9 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { purchaseFrequencyQueryOptions } from 'src/queries/option'
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { useAtomValue } from 'jotai'
+import { purchaseFrequencyRangeAtom } from 'src/store/purchase-frequency/atom'
 
 export default function PurchaseFrequencyChart() {
-  const { data: purchaseFrequency } = useQuery(purchaseFrequencyQueryOptions())
+  const { from, to } = useAtomValue(purchaseFrequencyRangeAtom)
+
+  const { data: purchaseFrequency } = useQuery(purchaseFrequencyQueryOptions({ from, to }))
 
   return (
     <ResponsiveContainer width="100%" height={300}>
