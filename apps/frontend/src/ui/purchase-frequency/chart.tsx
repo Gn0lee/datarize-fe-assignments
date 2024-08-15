@@ -3,11 +3,20 @@ import { purchaseFrequencyQueryOptions } from 'src/queries/option'
 import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { useAtomValue } from 'jotai'
 import { purchaseFrequencyRangeAtom } from 'src/store/purchase-frequency/atom'
+import { Center, Spinner } from '@chakra-ui/react'
 
 export default function PurchaseFrequencyChart() {
   const { from, to } = useAtomValue(purchaseFrequencyRangeAtom)
 
   const { data: purchaseFrequency } = useQuery(purchaseFrequencyQueryOptions({ from, to }))
+
+  if (!purchaseFrequency) {
+    return (
+      <Center height={300}>
+        <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
+      </Center>
+    )
+  }
 
   return (
     <ResponsiveContainer width="100%" height={300}>

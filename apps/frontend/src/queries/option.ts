@@ -11,5 +11,5 @@ export const purchaseFrequencyQueryOptions = ({ from, to }: PurchaseFrequencyRan
     queryFn: async () =>
       apiInstance.get('purchase-frequency', { searchParams: { from, to } }).json<PurchaseFrequency[]>(),
     select: (data) => convertPurchaseFrequencyDataToKRW(data),
-    retry: 1,
+    throwOnError: true,
   })

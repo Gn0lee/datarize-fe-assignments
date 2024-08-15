@@ -26,14 +26,14 @@ const theme = extendTheme({
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
         <Stack spacing={4} padding={5} backgroundColor="gray.50">
           <Heading as="h2">데이터라이즈 과제</Heading>
           <PurchaseFrequencyCard />
         </Stack>
-      </QueryClientProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </QueryClientProvider>
   )
 }
 

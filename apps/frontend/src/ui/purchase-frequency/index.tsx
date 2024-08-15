@@ -1,6 +1,7 @@
 import { Card, CardBody, Stack, Heading } from '@chakra-ui/react'
 import PurchaseFrequencyChart from 'src/ui/purchase-frequency/chart'
 import PurchaseFrequencyRangeInput from 'src/ui/purchase-frequency/range-input'
+import ResetErrorBoundary from 'src/ui/common/error-boundary'
 
 export default function PurchaseFrequencyCard() {
   return (
@@ -11,7 +12,9 @@ export default function PurchaseFrequencyCard() {
             Purchase Frequency
           </Heading>
           <PurchaseFrequencyRangeInput />
-          <PurchaseFrequencyChart />
+          <ResetErrorBoundary elementProps={{}}>
+            <PurchaseFrequencyChart />
+          </ResetErrorBoundary>
         </Stack>
       </CardBody>
     </Card>
