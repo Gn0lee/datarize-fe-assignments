@@ -5,7 +5,7 @@ const router = new Router()
 
 router.get('/api/purchase-frequency', async (ctx) => {
   try {
-    if (Math.random() <= 1) {
+    if (Math.random() <= 0.5) {
       throw new Error('Intentional error occurred')
     }
 
