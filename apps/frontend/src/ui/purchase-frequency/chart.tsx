@@ -11,13 +11,13 @@ export default function PurchaseFrequencyChart() {
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={purchaseFrequency}>
+      <BarChart data={purchaseFrequency} barSize={40}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="range" />
+        <XAxis dataKey="range" tickMargin={10} />
         <YAxis />
         <Tooltip />
-        <Legend />
-        <Bar dataKey="count" fill="#8884d8" shape={<Rectangle radius={[2, 2, 0, 0]} />} />
+        <Legend verticalAlign="top" height={36} />
+        <Bar dataKey="count" fill="#8884d8" shape={<Rectangle radius={[2, 2, 0, 0]} />} name="구매 수" />
       </BarChart>
     </ResponsiveContainer>
   )
