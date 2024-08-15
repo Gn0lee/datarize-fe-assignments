@@ -17,3 +17,7 @@ export interface Purchase {
   price: number
   imgSrc: string
 }
+
+export interface PurchaseWithId extends Purchase {
+  id: string
+}
