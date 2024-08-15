@@ -5,8 +5,8 @@ const DIVISOR = 10000
 /*
  *   PurchaseFrequency 데이터를 KRW로 변환합니다.
  *   @param data - 변환할 데이터
- *   @param min - 최소 범위
- *   @param max - 최대 범위
+ *   @param min - 최소 범위 (기본값: 20000)
+ *   @param max - 최대 범위 (기본값: 100000)
  *   @returns 변환된 데이터
  *  */
 export const convertPurchaseFrequencyDataToKRW = (
@@ -14,6 +14,16 @@ export const convertPurchaseFrequencyDataToKRW = (
   min: number = 2 * DIVISOR,
   max: number = 10 * DIVISOR,
 ): PurchaseFrequency[] => {
+  // min은 0보다 커야 한다.
+  if (min < 0) {
+    throw new Error('min 값은 0보다 커야 합니다.')
+  }
+
+  // min은 max보다 작아야 한다.
+  if (min >= max) {
+    throw new Error('min 값은 max 값보다 작아야 합니다.')
+  }
+
   // min과 max가 DIVISOR로 나누어 떨어지는지 확인
   if (min % DIVISOR !== 0 || max % DIVISOR !== 0) {
     throw new Error(`min과 max 값은 ${DIVISOR}으로 나누어 떨어져야 합니다.`)
