@@ -9,6 +9,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import { searchNameAtom, sortingStatesAtom } from 'src/store/customer/atom'
 import { HTTPError } from 'ky'
 import NoData from 'src/ui/customer/no-data'
+import ResetError from 'src/ui/common/reset-error'
 
 export default function CustomersTable() {
   const [sortingStates, setSortingStates] = useAtom(sortingStatesAtom)
@@ -45,7 +46,11 @@ export default function CustomersTable() {
     [],
   )
 
-  const { data: customers, error } = useQuery(
+  const {
+    data: customers,
+    error,
+    refetch,
+  } = useQuery(
     customersQueryOptions({
       sortBy: sortingStates.length > 0 ? (sortingStates[0].desc ? 'desc' : 'asc') : '',
       name: searchName,
@@ -66,6 +71,16 @@ export default function CustomersTable() {
 
   if (error instanceof HTTPError && error.response.status === 404) {
     return <NoData />
+  }
+
+  if (error) {
+    return (
+      <ResetError
+        onClickRetryButton={() => {
+          refetch()
+        }}
+      />
+    )
   }
 
   if (!customers) {

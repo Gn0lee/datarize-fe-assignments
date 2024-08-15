@@ -1,7 +1,7 @@
 import { Card, CardBody, Stack, Heading } from '@chakra-ui/react'
 import PurchaseFrequencyChart from 'src/ui/purchase-frequency/chart'
 import PurchaseFrequencyRangeInput from 'src/ui/purchase-frequency/range-input'
-import ResetErrorBoundary from 'src/ui/common/reset-error-boundary'
+import ResetError from 'src/ui/common/reset-error'
 import { QueryErrorResetBoundary } from '@tanstack/react-query'
 import { ErrorBoundary } from 'react-error-boundary'
 
@@ -19,7 +19,11 @@ export default function PurchaseFrequencyCard() {
               <ErrorBoundary
                 onReset={reset}
                 fallbackRender={({ resetErrorBoundary }) => (
-                  <ResetErrorBoundary resetErrorBoundary={resetErrorBoundary} />
+                  <ResetError
+                    onClickRetryButton={() => {
+                      resetErrorBoundary()
+                    }}
+                  />
                 )}
               >
                 <PurchaseFrequencyChart />
