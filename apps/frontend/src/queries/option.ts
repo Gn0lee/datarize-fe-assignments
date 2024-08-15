@@ -36,4 +36,5 @@ export const customerPurchasesQueryOptions = ({ id }: Partial<Pick<Customer, 'id
     select: (data) => data.map((purchase) => ({ ...purchase, id: nanoid() })),
     throwOnError: true,
     enabled: !!id,
+    staleTime: 1000 * 60 * 5,
   })
