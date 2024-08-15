@@ -10,8 +10,7 @@ import type { Customer, Purchase, PurchaseWithId } from 'src/types/data'
 export const purchaseFrequencyQueryOptions = ({ from, to }: PurchaseFrequencyRange) =>
   queryOptions({
     queryKey: ['purchaseFrequency', from, to],
-    queryFn: async () =>
-      apiInstance.get('purchase-frequency', { searchParams: { from, to } }).json<PurchaseFrequency[]>(),
+    queryFn: () => apiInstance.get('purchase-frequency', { searchParams: { from, to } }).json<PurchaseFrequency[]>(),
     select: (data) => convertPurchaseFrequencyDataToKRW(data),
     throwOnError: true,
   })
@@ -19,7 +18,7 @@ export const purchaseFrequencyQueryOptions = ({ from, to }: PurchaseFrequencyRan
 export const customersQueryOptions = (searchParams = { sortBy: '', name: '' }) =>
   queryOptions<Customer[], unknown, Customer[]>({
     queryKey: ['customers', searchParams.sortBy, searchParams.name],
-    queryFn: async () =>
+    queryFn: () =>
       apiInstance
         .get('customers', {
           searchParams,
@@ -32,7 +31,7 @@ export const customersQueryOptions = (searchParams = { sortBy: '', name: '' }) =
 export const customerPurchasesQueryOptions = ({ id }: Partial<Pick<Customer, 'id'>>) =>
   queryOptions<Purchase[], unknown, PurchaseWithId[]>({
     queryKey: ['customerPurchases', id],
-    queryFn: async () => apiInstance.get(`customers/${id}/purchases`).json<Purchase[]>(),
+    queryFn: () => apiInstance.get(`customers/${id}/purchases`).json<Purchase[]>(),
     select: (data) => data.map((purchase) => ({ ...purchase, id: nanoid() })),
     throwOnError: true,
     enabled: !!id,
