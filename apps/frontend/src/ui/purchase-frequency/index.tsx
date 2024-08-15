@@ -12,7 +12,7 @@ export default function PurchaseFrequencyCard() {
             Purchase Frequency
           </Heading>
           <PurchaseFrequencyRangeInput />
-          <ResetErrorBoundary elementProps={{}}>
+          <ResetErrorBoundary>
             <PurchaseFrequencyChart />
           </ResetErrorBoundary>
         </Stack>

@@ -2,7 +2,13 @@ import { ChakraProvider, Stack, extendTheme } from '@chakra-ui/react'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import PurchaseFrequencyCard from 'src/ui/purchase-frequency'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+})
 
 import { Heading } from '@chakra-ui/react'
 
