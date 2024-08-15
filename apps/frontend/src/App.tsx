@@ -11,6 +11,7 @@ const queryClient = new QueryClient({
 })
 
 import { Heading } from '@chakra-ui/react'
+import CustomerCard from 'src/ui/customer'
 
 const theme = extendTheme({
   config: { useSystemColorMode: true },
@@ -37,6 +38,7 @@ function App() {
         <Stack spacing={4} padding={5} backgroundColor="gray.50">
           <Heading as="h2">데이터라이즈 과제</Heading>
           <PurchaseFrequencyCard />
+          <CustomerCard />
         </Stack>
       </ChakraProvider>
     </QueryClientProvider>
