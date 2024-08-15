@@ -1,6 +1,6 @@
 import { ChakraProvider, Stack, extendTheme } from '@chakra-ui/react'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import PurchaseFrequencyChart from 'src/ui/purchase-frequency-chart'
+import PurchaseFrequencyCard from 'src/ui/purchase-frequency'
 
 const queryClient = new QueryClient()
 
@@ -30,7 +30,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Stack spacing={4} padding={5} backgroundColor="gray.50">
           <Heading as="h2">데이터라이즈 과제</Heading>
-          <PurchaseFrequencyChart />
+          <PurchaseFrequencyCard />
         </Stack>
       </QueryClientProvider>
     </ChakraProvider>
