@@ -1,4 +1,4 @@
-import { Flex, Input, Text } from '@chakra-ui/react'
+import { Flex, FormLabel, Input, FormControl, FormHelperText, FormErrorMessage } from '@chakra-ui/react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { ChangeEvent } from 'react'
 
@@ -6,7 +6,7 @@ import { purchaseFrequencyRangeAtom } from 'src/store/purchase-frequency/atom'
 import { setFromAtom, setToAtom } from 'src/store/purchase-frequency/action'
 
 export default function PurchaseFrequencyRangeInput() {
-  const { from, to } = useAtomValue(purchaseFrequencyRangeAtom)
+  const { from, to, isInvalid } = useAtomValue(purchaseFrequencyRangeAtom)
 
   const setFrom = useSetAtom(setFromAtom)
 
@@ -22,14 +22,28 @@ export default function PurchaseFrequencyRangeInput() {
 
   return (
     <Flex gap={16}>
-      <Flex gap={8} alignItems="center">
-        <Text height="fit-content">From</Text>
+      <FormControl isInvalid={isInvalid}>
+        <FormLabel height="fit-content" htmlFor="from">
+          시작
+        </FormLabel>
         <Input type="date" id="from" value={from} onChange={handleFromChange} max={to} />
-      </Flex>
-      <Flex gap={8} alignItems="center">
-        <Text height="fit-content">To</Text>
+        {isInvalid ? (
+          <FormErrorMessage>검색 시작일은 종료일보다 이전이어야 합니다.</FormErrorMessage>
+        ) : (
+          <FormHelperText>검색 시작일을 입력하세요</FormHelperText>
+        )}
+      </FormControl>
+      <FormControl isInvalid={isInvalid}>
+        <FormLabel height="fit-content" htmlFor="to">
+          종료
+        </FormLabel>
         <Input type="date" id="to" value={to} onChange={handleToChange} min={from} />
-      </Flex>
+        {isInvalid ? (
+          <FormErrorMessage>검색 종료일은 시작일보다 이후여야 합니다.</FormErrorMessage>
+        ) : (
+          <FormHelperText>검색 종료일을 입력하세요</FormHelperText>
+        )}
+      </FormControl>
     </Flex>
   )
 }

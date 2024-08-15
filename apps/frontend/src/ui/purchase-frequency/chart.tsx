@@ -6,9 +6,9 @@ import { purchaseFrequencyRangeAtom } from 'src/store/purchase-frequency/atom'
 import LoadingSpinner from 'src/ui/common/loading-spinner'
 
 export default function PurchaseFrequencyChart() {
-  const { from, to } = useAtomValue(purchaseFrequencyRangeAtom)
+  const { from, to, isInvalid } = useAtomValue(purchaseFrequencyRangeAtom)
 
-  const { data: purchaseFrequency } = useQuery(purchaseFrequencyQueryOptions({ from, to }))
+  const { data: purchaseFrequency } = useQuery(purchaseFrequencyQueryOptions({ from, to, isInvalid }))
 
   if (!purchaseFrequency) {
     return <LoadingSpinner />

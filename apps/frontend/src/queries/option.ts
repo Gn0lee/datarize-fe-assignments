@@ -7,12 +7,13 @@ import type { PurchaseFrequencyRange } from 'src/store/purchase-frequency/atom'
 import { convertPurchaseFrequencyDataToKRW } from 'src/lib/purchase-frequency/chart'
 import type { Customer, Purchase, PurchaseWithId } from 'src/types/data'
 
-export const purchaseFrequencyQueryOptions = ({ from, to }: PurchaseFrequencyRange) =>
+export const purchaseFrequencyQueryOptions = ({ from, to, isInvalid }: PurchaseFrequencyRange) =>
   queryOptions({
     queryKey: ['purchaseFrequency', from, to],
     queryFn: () => apiInstance.get('purchase-frequency', { searchParams: { from, to } }).json<PurchaseFrequency[]>(),
     select: (data) => convertPurchaseFrequencyDataToKRW(data),
     throwOnError: true,
+    enabled: !isInvalid,
   })
 
 export const customersQueryOptions = (searchParams = { sortBy: '', name: '' }) =>
