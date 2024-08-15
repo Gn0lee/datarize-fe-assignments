@@ -1,20 +1,25 @@
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, useDisclosure } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import { customersQueryOptions } from 'src/queries/option'
 import type { Customer } from 'src/types/data'
 import { Fragment, useMemo } from 'react'
 import LoadingSpinner from 'src/ui/common/loading-spinner'
-import { useAtom, useAtomValue } from 'jotai'
-import { searchNameAtom, sortingStatesAtom } from 'src/store/customer/atom'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { searchNameAtom, selectedCustomerAtom, sortingStatesAtom } from 'src/store/customer/atom'
 import { HTTPError } from 'ky'
 import NoData from 'src/ui/customer/no-data'
 import ResetError from 'src/ui/common/reset-error'
+import PurchasesModal from 'src/ui/customer/purchases-modal'
 
 export default function CustomersTable() {
   const [sortingStates, setSortingStates] = useAtom(sortingStatesAtom)
 
   const searchName = useAtomValue(searchNameAtom)
+
+  const setSelectedCustomer = useSetAtom(selectedCustomerAtom)
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const columns = useMemo<ColumnDef<Customer>[]>(
     () => [
@@ -113,7 +118,15 @@ export default function CustomersTable() {
         </Thead>
         <Tbody>
           {table.getRowModel().rows.map((row) => (
-            <Tr key={row.id}>
+            <Tr
+              key={row.id}
+              onClick={() => {
+                setSelectedCustomer(row.original)
+                onOpen()
+              }}
+              cursor="pointer"
+              _hover={{ backgroundColor: 'gray.200' }}
+            >
               {row.getVisibleCells().map((cell) => (
                 <Fragment key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Fragment>
               ))}
@@ -121,6 +134,7 @@ export default function CustomersTable() {
           ))}
         </Tbody>
       </Table>
+      <PurchasesModal isOpen={isOpen} onClose={onClose} />
     </TableContainer>
   )
 }

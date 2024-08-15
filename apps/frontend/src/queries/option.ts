@@ -4,7 +4,7 @@ import apiInstance from 'src/lib/common/ky'
 import type { PurchaseFrequency } from 'src/types/data'
 import type { PurchaseFrequencyRange } from 'src/store/purchase-frequency/atom'
 import { convertPurchaseFrequencyDataToKRW } from 'src/lib/purchase-frequency/chart'
-import type { Customer } from 'src/types/data'
+import type { Customer, Purchase } from 'src/types/data'
 
 export const purchaseFrequencyQueryOptions = ({ from, to }: PurchaseFrequencyRange) =>
   queryOptions({
@@ -26,4 +26,13 @@ export const customersQueryOptions = (searchParams = { sortBy: '', name: '' }) =
         .json<Customer[]>(),
     select: (data) => data,
     placeholderData: keepPreviousData,
+  })
+
+export const customerPurchasesQueryOptions = ({ id }: Partial<Pick<Customer, 'id'>>) =>
+  queryOptions({
+    queryKey: ['customerPurchases', id],
+    queryFn: async () => apiInstance.get(`customers/${id}/purchases`).json<Purchase[]>(),
+    select: (data) => data,
+    throwOnError: true,
+    enabled: !!id,
   })

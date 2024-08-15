@@ -9,3 +9,11 @@ export interface Customer {
   count: number
   totalAmount: number
 }
+
+export interface Purchase {
+  date: string
+  quantity: number
+  product: string
+  price: number
+  imgSrc: string
+}
