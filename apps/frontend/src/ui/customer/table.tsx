@@ -38,7 +38,7 @@ export default function CustomersTable() {
       {
         accessorKey: 'totalAmount',
         header: '총 구매 금액',
-        cell: ({ row }) => <Td>{row.getValue('totalAmount')}원</Td>,
+        cell: ({ row }) => <Td>{row.getValue<number>('totalAmount').toLocaleString()}원</Td>,
         enableSorting: true,
       },
     ],
