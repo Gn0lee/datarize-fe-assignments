@@ -1,6 +1,8 @@
 import { PurchaseWithId } from 'src/types/data'
 import { Highlight, Stack, Text } from '@chakra-ui/react'
 import { ModalFooter } from '@chakra-ui/react'
+// @ts-expect-error testing-library에서 React 타입을 요구
+import React from 'react'
 
 export default function PurchaseModalFooter({ purchases }: { purchases: PurchaseWithId[] }) {
   if (purchases.length === 0) {

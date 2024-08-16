@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, beforeEach } from 'vitest'
 import PurchaseFrequencyRangeInput from 'src/ui/purchase-frequency/range-input'
+// @ts-expect-error testing-library에서 React 타입을 요구
 import React from 'react'
 
 describe('PurchaseFrequencyRangeInput 컴포넌트', () => {
