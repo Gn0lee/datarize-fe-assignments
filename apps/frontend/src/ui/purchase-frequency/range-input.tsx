@@ -1,6 +1,6 @@
 import { Flex, FormLabel, Input, FormControl, FormHelperText, FormErrorMessage } from '@chakra-ui/react'
 import { useAtomValue, useSetAtom } from 'jotai'
-import { ChangeEvent } from 'react'
+import React from 'react'
 
 import { purchaseFrequencyRangeAtom } from 'src/store/purchase-frequency/atom'
 import { setFromAtom, setToAtom } from 'src/store/purchase-frequency/action'
@@ -12,11 +12,11 @@ export default function PurchaseFrequencyRangeInput() {
 
   const setTo = useSetAtom(setToAtom)
 
-  const handleFromChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFromChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFrom(event.target.value)
   }
 
-  const handleToChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleToChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTo(event.target.value)
   }
 
